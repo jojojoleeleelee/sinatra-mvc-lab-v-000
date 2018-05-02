@@ -4,6 +4,7 @@ class PigLatinizer
     if text.include?(" ")
       to_pig_latin(text)
     else
+      binding.pry
       if text[0].scan(/[aeiouAEIOU]/).count > 0
         "#{text}way"
       # elsif text[0..2].scan(/[bcdfghjklmnpqrstvwxyz]/).count == 3
