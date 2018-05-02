@@ -1,24 +1,30 @@
 class PigLatinizer
 
-  def piglatinize(text)
-    if text.include?(" ")
-      to_pig_latin(text)
-    else
-      if text[0].scan(/[aeiouAEIOU]/).count > 0
-        "#{text}way"
-      elsif text[0..2].scan(/[bcdfghjklmnpqrstvwxyz]/).count > 2
-          "#{text[3..-1]}#{text[0..2]}ay"
-      elsif text[0..1].scan(/[bcdfghjklmnpqrstvwxyz]/).count > 1
-          "#{text[2..-1]}#{text[0..1]}ay"
+  def piglatinize(string)
+    words = string.split(' ')
+
+    words.map do |word|
+      prefix = word.match(/^[^aeiouAEIOU]/)
+
+      mod_word = ""
+
+      if prefix
+        mod_word = word.sub(/^#{prefix}/, '')
+        mod_word.sub!('.', '') if word.end_with?('.')
+        mod_word += "#{prefix}ay"
+        mod_word += '.' if word.end_with?('.')
+        mod_word
       else
-          "#{text[1..-1]}#{text[0]}ay"
+        mod_word += word  "way"
+        mod_word
       end
-    end
+
+      # if word == word.capitalize
+      #   mod_word.capitalize!
+      # end
+
+      mod_word
+    end.join(' ')
   end
 
-  def to_pig_latin(sentence)
-    sentence.split.map do |w|
-      piglatinize(w)
-    end.join(" ")
-  end
 end
