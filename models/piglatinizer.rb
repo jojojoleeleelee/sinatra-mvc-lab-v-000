@@ -18,15 +18,7 @@ class PigLatinizer
 
   def to_pig_latin(sentence)
     sentence.split(' ').map do |w|
-      if w[0].scan(/[aeiouAEIOU]/).count > 0
-        "#{w}way"
-      elsif w[0..2].scan(/[bcdfghjklmnpqrstvwxyz]/).count > 2
-          "#{w[3..-1]}#{w[0..2]}ay"
-      elsif w[0..1].scan(/[bcdfghjklmnpqrstvwxyz]/).count > 1
-          "#{w[2..-1]}#{w[0..1]}ay"
-      else
-          "#{w[1..-1]}#{w[0]}ay"
-      end
+      piglatinize(w)
     end.join(" ")
   end
 end
