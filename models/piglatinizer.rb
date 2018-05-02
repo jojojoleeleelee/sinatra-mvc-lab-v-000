@@ -1,35 +1,35 @@
 class PigLatinizer
 
   def piglatinize(text)
-    if text.match(/\s/)
-      to_pig_latin(@text)
+    if text.include?(" ")
+      to_pig_latin(text)
     else
-      if text.match(/^[aeiouAEIOU]\w+/) != true
-        case text
-        when text.match(/^[aeiouAEIOU][aeiouAEIOU]\w+/) != true
-          "#{text[2..-1]}#{text[0..1]}ay"
-        else
-          "#{text[1..-1]}#{text[0]}ay"
-        end
-      else
+      # binding.pry
+      if text[0].scan(/[aeiouAEIOU]/).count > 0
         "#{text}way"
+      elsif text[0..2].scan(/[bcdfghjklmnpqrstvwxyz]/).count >= 2
+          "#{text[3..-1]}#{text[0..2]}ay"
+      elsif text[0..1].scan(/[bcdfghjklmnpqrstvwxyz]/).count >= 1
+          "#{text[2..-1]}#{text[0..1]}ay"
+      else
+          "#{text[1..-1]}#{text[0]}ay"
       end
     end
   end
 
   def to_pig_latin(sentence)
-    # binding.pry
-    text.split(' ').map do |w|
-      if text.match(/^[aeiouAEIOU]/) != true
-        case text
-        when text.match(/^[aeiouAEIOU][aeiouAEIOU]\w+/) != true
-          "#{text[2..-1]}#{text[0..1]}ay"
-        else
-          "#{text[1..-1]}#{text[0]}ay"
-        end
+    sentence.split(' ').map do |w|
+      if w[0].scan(/[aeiouAEIOU]/).count > 0
+        "#{w}way"
+      elsif w[0..1].scan(/[bcdfghjklmnpqrstvwxyz]/).count > 1
+          "#{w[2..-1]}#{w[0..1]}ay"
       else
-        "#{text}way"
+          "#{w[1..-1]}#{w[0]}ay"
       end
-    end
+    end.join(" ")
   end
 end
+
+
+
+
