@@ -15,7 +15,7 @@ class PigLatinizer
         mod_word += '.' if word.end_with?('.')
         mod_word
       else
-        mod_word += word  "way"
+        mod_word = word  "way"
         mod_word
       end
 
